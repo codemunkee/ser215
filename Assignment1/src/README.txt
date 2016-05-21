@@ -18,7 +18,7 @@ hours worked each day (only integers, no more than 24 hours).
 
 
 * To Build *
-javac PalindromicPrimes.java
+javac EmployeeWorkHours.java
 
 * To Run *
 java EmployeeWorkHours
