@@ -1,33 +1,50 @@
 /**
- * Created by Russell Nealis on 5/21/16 for SER 215 at ASU (ASSIGNMENT 2).
+ * Created by Russell Nealis on 5/18/16 for SER 215 at ASU (ASSIGNMENT 2).
  * Student ID: 1001059180 / 2016SummerA-X-SER215-46716
  */
 
-PalindromicPrimes
+EmployeeWorkHours
 ------------------
 
-A palindromic prime is a prime number that is also palindromic.
-For example, 131 is a prime and also a palindromic prime.
+This is a simple tool that sorts the number of hours worked by each employee
+in descending order. It first prompts the user for the number of employees
+and the number of work days in the week. Then for each employee the user is
+prompted for an employee name and the number of hours worked on each work day.
+Following the user's input a sorted list of hours worked by employee is printed.
 
-This program takes in an integer n as input and displays the
-first n palindromic prime numbers. 10 numbers per line are
-diplayed with smooth columns up to 100 numbers (10 x 10 table).
+There is basic validation on the number of employees (only integers) and work days
+(only integers, no more than 7). The tool will also validate that the number of
+hours worked each day (only integers, no more than 24 hours).
+
 
 * To Build *
 javac EmployeeWorkHours.java
 
 * To Run *
-java EmployeeWorksHours
+java EmployeeWorkHours
 
-ex. ./PalindromicPrimes 100
+ex: user$ java EmployeeWorkHours
+Please enter the number of employees: 3
+Please enter the number of work days: 3
 
-2     3     5     7     11    101   131   151   181   191
-313   353   373   383   727   757   787   797   919   929
-10301 10501 10601 11311 11411 12421 12721 12821 13331 13831
-13931 14341 14741 15451 15551 16061 16361 16561 16661 17471
-17971 18181 18481 19391 19891 19991 30103 30203 30403 30703
-30803 31013 31513 32323 32423 33533 34543 34843 35053 35153
-35353 35753 36263 36563 37273 37573 38083 38183 38783 39293
-70207 70507 70607 71317 71917 72227 72727 73037 73237 73637
-74047 74747 75557 76367 76667 77377 77477 77977 78487 78787
-78887 79397 79697 79997 90709 91019 93139 93239 93739 94049
+Number of Employees: 3
+Number of Working Days: 3
+
+Please enter the name of the employee: Russ
+Please enter the number of hours worked (day 1): 1
+Please enter the number of hours worked (day 2): 2
+Please enter the number of hours worked (day 3): 3
+
+Please enter the name of the employee: Tina
+Please enter the number of hours worked (day 1): 4
+Please enter the number of hours worked (day 2): 5
+Please enter the number of hours worked (day 3): 6
+
+Please enter the name of the employee: Sonny
+Please enter the number of hours worked (day 1): 0
+Please enter the number of hours worked (day 2): 12
+Please enter the number of hours worked (day 3): 8
+
+Sonny worked 20 hours.
+Tina worked 15 hours.
+Russ worked 6 hours.

@@ -1,23 +1,67 @@
 /**
- * Created by rnealis on 5/20/16.
+ * Created by Russell Nealis on 5/18/16 for SER 215 at ASU (ASSIGNMENT 2).
+ * Student ID: 1001059180 / 2016SummerA-X-SER215-46716
+ *
+ * This application prompts a user for a number of employees, and number of
+ * days worked. For each employee, the user is prompted for the hours
+ * worked by each employee. It then tallies up the total hours worked and
+ * prints back a list of all of the employees sorted by the amount of hours
+ * worked, from highest to lowest.
+ *
  */
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
-class Employee {
+// We implement Comparable so we can more easily
+// sort the employees by the number of hours worked
+class Employee implements Comparable<Employee> {
     /* Object representation of employees */
 
-    String name;
-    int[] hours;
+    private String name;
+    private int[] hours;
+    private int totalHours = 0;
 
-    public Employee(String name, int[] hours) {
+    Employee(String name, int[] hours) {
         this.name = name;
         this.hours = hours;
+        this.totalHours = calculateTotalHours();
+    }
+
+    // we set the name with the constructor, so
+    // only need a getter for the name
+    String getName() {
+        return name;
+    }
+
+    // return the total number of hours an employee has
+    // worked over the course of a week
+    int getTotalHours() {
+        return totalHours;
+    }
+
+    // Calculates the total hours an employee has worked
+    private int calculateTotalHours() {
+        for (int dailyHours : hours) {
+            totalHours += dailyHours;
+        }
+        return totalHours;
+    }
+
+    // this allows us to compare one employees hours to another
+    // for the purposes of sorting
+    @Override
+    public int compareTo(final Employee employee) {
+        return Integer.compare(this.totalHours, employee.totalHours);
     }
 }
 
 public class EmployeeWorkHours {
     /* Used for presenting and collecting information about
-       employee work hours.
+       employee work hours. The majority of the class is
+       built for collecting and verifying information input
+       by the user. Data collected is stored in Employee objects
      */
 
     private static int getEmployeeCount(Scanner scan){
@@ -42,37 +86,49 @@ public class EmployeeWorkHours {
     }
 
     private static String getEmployeeName(Scanner scan){
-        // Get the name of an employee
+        /* Get the name of an employee from the user */
 
         // we do this to move the scanner cursor
         System.out.print("Please enter the name of the employee: ");
         return scan.nextLine();
     }
 
-    private static int[] getEmployeeHours(Scanner scan, int days){
-        // Build an array with a list of the number of hours worked
+    private static int[] getEmployeeHours(Scanner scan, int daysWorked){
+        /* Get a list of hours worked from the user */
 
-        int[] hours = new int[days];
+        // array for holding hours
+        int[] hours = new int[daysWorked];
 
         // for each day worked get the number of hours that have been worked
-        for (int daysCounted = 0; daysCounted < days; daysCounted++) {
+        // we check that the hours provided is an integer between 0-24
+        int daysCounted = 0;
+        while (daysCounted != daysWorked) {
 
             System.out.print("Please enter the number of hours worked (day " +
-                             daysCounted + "): ");
+                    (daysCounted + 1) + "): ");
 
             // until we get an integer, keep prompting
             while (!scan.hasNextInt()) {
                 System.out.println("\nSorry, I need an integer.\n");
                 System.out.print("Please enter the number of hours worked (day " +
-                                 daysCounted + "): ");
+                        (daysCounted + 1) + "): ");
                 scan.nextLine();
             }
-            hours[daysCounted] = scan.nextInt();
-            // move to the next line
-            scan.nextLine();
 
-            daysCounted++;
+            int hoursWorked = scan.nextInt();
+
+            // if the hours input does not make sense, prompt again
+            if (hoursWorked < 0 | hoursWorked > 24) {
+                System.out.println("\nHours worked must be between 0 and 24\n");
+            } else {
+                hours[daysCounted] = hoursWorked;
+                daysCounted++;
+            }
         }
+        // move to the next line
+        scan.nextLine();
+        // just an extra space for some padding
+        System.out.println();
         return hours;
     }
 
@@ -101,7 +157,8 @@ public class EmployeeWorkHours {
             validNumberOfDays =  (numberOfDays > 0 && numberOfDays < 8);
 
             if (!validNumberOfDays) {
-                System.out.println("\nYou must enter a number of days between 1 and 7.\n");
+                System.out.println("\nYou must enter a number of days " +
+                        "between 1 and 7.\n");
             }
 
         } while (!validNumberOfDays);
@@ -121,23 +178,26 @@ public class EmployeeWorkHours {
         // Get the number of days per employee we want to tabulate hours for
         int workingDays = getWorkingDays(scan);
 
-        System.out.println();
-        System.out.println("Number of Employees: " + numberOfEmployees);
-        System.out.println("Number of Working Days: " + workingDays);
-        System.out.println();
+        System.out.println("\nNumber of Employees: " + numberOfEmployees);
+        System.out.println("Number of Working Days: " + workingDays + "\n");
 
-        // array to hold our employee objects
-        Employee employees[] = new Employee[numberOfEmployees];
+        // create an array list for holding of our employee objects
+        ArrayList<Employee> employees = new ArrayList<>();
 
-        // for each employee, create an object for them, query
+        // for each employee, create an object, query for their name and hours worked
         for (int employeeNum = 0; employeeNum < numberOfEmployees; employeeNum++) {
+            Employee newEmployee = new Employee(getEmployeeName(scan),
+                    getEmployeeHours(scan, workingDays));
+            employees.add(newEmployee);
+        }
 
-            int[] bleh = new int[10];
-            bleh[0] = 0;
-            employees[employeeNum] = new Employee(getEmployeeName(scan),
-                                                  getEmployeeHours(scan, workingDays));
+        // sort the employees by hours worked, descending
+        Collections.sort(employees, Collections.reverseOrder());
 
-            System.out.println(employees[employeeNum].name);
+        // print out each employee's information -> name and hours worked
+        for (Employee employee : employees) {
+            System.out.println(employee.getName() + " worked " +
+                    employee.getTotalHours() + " hours.");
         }
     }
 }
