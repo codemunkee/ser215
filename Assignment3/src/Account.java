@@ -1,9 +1,11 @@
+/**
+ * Created by Russell Nealis on 5/24/16 for SER 215 at ASU (ASSIGNMENT 3).
+ * Student ID: 1001059180 / 2016SummerA-X-SER215-46716
+ */
+
 import java.util.Date;
 import java.util.concurrent.ThreadLocalRandom;
 
-/**
- * Created by rnealis on 5/24/16.
- */
 public class Account {
     private int accountId;
     private double balance;

@@ -1,6 +1,8 @@
 /**
- * Created by rnealis on 5/24/16.
+ * Created by Russell Nealis on 5/24/16 for SER 215 at ASU (ASSIGNMENT 3).
+ * Student ID: 1001059180 / 2016SummerA-X-SER215-46716
  */
+
 public class Savings extends Account {
     public Savings() {
         // Note: If a constructor does not explicitly invoke a superclass
