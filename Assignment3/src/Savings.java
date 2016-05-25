@@ -12,4 +12,19 @@ public class Savings extends Account {
         // call the Account constructor to set account ID, balance, annual interest rate
         super(accountId, balance, annualInterestRate);
     }
+
+    @Override
+    public double withdraw(double withdrawAmount) {
+        /* We override the default withdraw method provided by the parent class
+           so that we can protect a savings account from being overdrawn. We
+           return the balance at the end of the operation.
+        */
+        if ((getBalance() - withdrawAmount) < 0) {
+            System.out.printf("Sorry, withdrawing $%s from account " +
+                              "would result in an overdrawn balance.\n", withdrawAmount);
+        } else {
+            super.withdraw(withdrawAmount);
+        }
+        return getBalance();
+    }
 }

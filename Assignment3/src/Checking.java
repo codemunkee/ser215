@@ -13,4 +13,20 @@ public class Checking extends Account {
         // call the Account constructor to set account ID, balance, annual interest rate
         super(accountId, balance, annualInterestRate);
     }
+
+    @Override
+    public double withdraw(double withdrawAmount) {
+        /* We override the default withdraw method provided by the parent class
+           so that we can protect a checking account from being overdrawn by
+           more than $5000. We return the balance at the end of the operation.
+        */
+        if ((getBalance() - withdrawAmount) < -5000) {
+            System.out.printf("Sorry, withdrawing $%s from account " +
+                    "would result in an overdrawn balance greater " +
+                    "than $5000.\n", withdrawAmount);
+        } else {
+            super.withdraw(withdrawAmount);
+        }
+        return getBalance();
+    }
 }
