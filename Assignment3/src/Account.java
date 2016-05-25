@@ -18,6 +18,15 @@ public class Account {
         this.dateCreated = new Date();
     }
 
+    Account(int accountId, double balance, double annualInterestRate) {
+        /* allows for the account to be initialized with an account ID,
+           balance, and annual interest rate.
+         */
+        this.accountId = accountId;
+        this.balance = balance;
+        this.annualInterestRate = annualInterestRate;
+    }
+
     /* Getters and Setters */
 
     public Date getDateCreated() {
