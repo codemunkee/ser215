@@ -6,7 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Account {
     private int accountId;
-    protected double balance;
+    private double balance;
     private double annualInterestRate;
     private Date dateCreated;
 
