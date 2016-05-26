@@ -1,43 +1,49 @@
+import java.util.Scanner;
+
 /**
  * Created by Russell Nealis on 5/24/16 for SER 215 at ASU (ASSIGNMENT 3).
  * Student ID: 1001059180 / 2016SummerA-X-SER215-46716
  */
 
 public class TestAccount {
+
+    private static int getAccountID() {
+        /* Gets and verifies an integer account ID */
+        Scanner scan = new Scanner(System.in);
+
+        System.out.print("Please enter an account ID: ");
+        while (!scan.hasNextInt()) {
+            System.out.println("\nAccount ID must be an integer.\n");
+            System.out.print("Please enter an account ID: ");
+            scan.next();
+        }
+        return scan.nextInt();
+    }
+
+    private static double getDoubleValue(String valueName) {
+        /* Gets and verifies an double value, string must be supplied
+         * for use when querying user for a specific type of value
+         * (e.g. account balance) */
+        Scanner scan = new Scanner(System.in);
+
+        System.out.printf("Please enter a %s: ", valueName);
+        while (!scan.hasNextDouble()) {
+            System.out.printf("\n%s must be a floating point number.\n\n", valueName);
+            System.out.printf("Please enter a %s: ", valueName);
+            scan.next();
+        }
+        return scan.nextDouble();
+    }
+
     public static void main(String args[]) throws java.lang.InterruptedException {
-        Account account = new Account();
-
-        System.out.println(account.getAccountId());
-        System.out.println(account.getDateCreated());
-
-        System.out.println(account.getAnnualInterestRate());
-        System.out.println(account.getBalance());
-        account.setBalance(1000);
-        account.setAnnualInterestRate(.01);
-        System.out.println(account.getBalance());
-        System.out.println(account.getMonthlyInterest());
-        account.withdraw(500.24);
-        System.out.println(account.getBalance());
-        System.out.println(account.getMonthlyInterest());
-        account.deposit(5);
-        account.deposit(5.25);
-        System.out.println(account.getBalance());
-
-        System.out.println("Now Checking");
-        Checking checking = new Checking();
-        Checking checking2 = new Checking(1234, 0.1, 23);
-        checking2.withdraw(3000);
-        checking2.withdraw(2000);
-        checking2.withdraw(.22);
-
-
-        System.out.println(checking.getBalance());
-        System.out.println(checking2.getBalance());
-
-        System.out.println("Now Savings");
-        Savings savings1 = new Savings(1000, 3000.1, 0.1);
-        savings1.withdraw(20000);
-
+        System.out.println("Please provide some information to create checking account.");
+        Checking checkingAccount = new Checking(getAccountID(),
+                                                getDoubleValue("Balance"),
+                                                getDoubleValue("Annual Interest Rate"));
+        System.out.println("Please provide some information to create savings account.");
+        Savings savingsAccount = new Savings(getAccountID(),
+                                             getDoubleValue("Balance"),
+                                             getDoubleValue("Annual Interest Rate"));
 
 
     }
