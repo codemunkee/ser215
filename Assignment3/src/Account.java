@@ -27,6 +27,7 @@ public class Account {
         this.accountId = accountId;
         this.balance = balance;
         this.annualInterestRate = annualInterestRate;
+        this.dateCreated = new Date();
     }
 
     /* Getters and Setters */
@@ -56,10 +57,8 @@ public class Account {
     }
 
     public void setAnnualInterestRate(double annualInterestRate) {
-        // annual interest rate should be a decimal, e.g.
-        // .01 = 1%
-        // .1 = 10%
-        // 1.0 = 100%
+        // annual interest rate provided should be a percent value
+        // e.g. 1.2 = 1.2%
         this.annualInterestRate = annualInterestRate;
     }
 
@@ -69,7 +68,7 @@ public class Account {
         /* this method returns the amount of interest the account will earn
            over the course of a month. we use a Simple Interest formula
            based on the amount of money in the account */
-        return  balance * annualInterestRate / 12.0;
+        return  balance * (annualInterestRate / 100) / 12.0;
     }
 
     public double withdraw(double withdrawAmount) {
